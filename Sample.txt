@@ -1,0 +1,23 @@
+install WSL   	*  it's Windows Subsystem for Linux (WSL) on Window
+		*  it gives Linux environment in windows 
+		* we can execute Linux CMD's inside WSL
+		* also we can now use  install packages, and even run a Node.js server. Need help setting up a dev environment inside WSL? 😊
+		* Basically it creates Linux environment in windows
+
+
+
+
+
+for sending multiple requests we use & to differential between them
+	we use & to separate query parameters, not spaces.
+  	like http://localhost:5421/sum/?num1=100&num2=500
+
+
+
+
+in URL if we live one whitespace it also consider as data  ( )= %20 
+	for ex	http://localhost:5421/sum/?num1=100 &num2=50
+		http://localhost:5421/sum/?num1=100%20&num2=50
+	 *URL become invalid
+	 URLs cannot contain spaces. This is known as URL encoding.
+
