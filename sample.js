@@ -1,4 +1,4 @@
-const users=[
+let users=[
     {
         Fname : "amar",
         age : 22,
@@ -31,8 +31,9 @@ const users=[
 ]
 
 const express =require("express")
-const app=express()
-const port =3838
+const app=express();
+const port =3838;
+app.use(express.json());
 // single user details in object 
 // app.get("/",(req,res) => {
 //     const user =users[0]
@@ -47,19 +48,19 @@ const port =3838
 // })
 
 // // all user details
-// app.get("/", (req, res) => {
-//     let userDetailsHTML = "<center><h1>All User Details</h1>";
-
-    
-//     users.forEach(user => {
+app.get("/", (req, res) => {
+    // res.json(users);
+    let userDetailsHTML = "<center><h1>All User Details</h1>";
+    users.forEach(users => {
         userDetailsHTML += `
-            <div style="border: 2px solid black; padding: 10px; margin: 10px; width: 300px; text-align: left; background-color: lightblue; border-raius:2px;">
-                <p><strong>Name:</strong> ${user.user1}</p>
-                <p><strong>Age:</strong> ${user.age}</p>
-                <p><strong>Date of Birth:</strong> ${user.DOB.date} ${user.DOB.month} ${user.DOB.year}</p>
-                <p><strong>Address:</strong> ${user.adds}</p>
+            <div style="border: 2px solid black; padding: 10px; margin: 10px; width: 300px; text-align: left; background-color: lightblue; border-radius:2px;">
+                <p><strong>Name:</strong> ${users.Fname}</p>
+                <p><strong>Age:</strong> ${users.age}</p>
+                <p><strong>Date of Birth:</strong> ${users.DOB.date} ${users.DOB.month} ${users.DOB.year}</p>
+                <p><strong>Address:</strong> ${users.adds}</p>
+                <p><strong>Address:</strong> ${users.section}</p>
             </div>
-        `;
+        `
     });
 
     userDetailsHTML += "</center>";
@@ -68,6 +69,35 @@ const port =3838
 })
 
 
+
+
+// post request
+
+
+app.post('/',function (req,res) {
+        const adduser=req.body;
+        console.log("Received Data:", adduser);        
+        users.push(adduser) 
+        res.status(201).json({ 
+            message: "User added successfully", 
+            users 
+        });   
+})
+
+// put request
+app.put("/",function (req,res) {
+    users.forEach(user=>{
+        user.section="A"
+        if (user.Fname === "amar") {
+            user.section = "B";
+    }});
+    res.json(users);})
+
+//delete request
+app.delete("/",function (req,res) {
+    users = users.filter(user => user.section !== "B"); 
+    res.json(users);
+})    
 app.listen(port,()=>{
     console.log("working"); 
 })
